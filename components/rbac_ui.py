@@ -6,6 +6,7 @@ Version: 1.0.0
 """
 
 import streamlit as st
+import base64
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 
@@ -156,59 +157,14 @@ def render_login_page() -> bool:
     </style>
     """, unsafe_allow_html=True)
     
-    # Professional Corporate Logo
-    st.markdown("""
+    # Professional Corporate Logo - Using data URI for proper rendering
+    logo_svg = '''<svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a365d"/><stop offset="50%" style="stop-color:#2b6cb0"/><stop offset="100%" style="stop-color:#4299e1"/></linearGradient><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ed8936"/><stop offset="100%" style="stop-color:#f6ad55"/></linearGradient></defs><circle cx="50" cy="50" r="48" fill="url(#lg1)"/><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><g transform="translate(50, 50) rotate(-30)"><ellipse cx="0" cy="0" rx="28" ry="6" fill="white"/><ellipse cx="22" cy="0" rx="8" ry="5" fill="rgba(255,255,255,0.9)"/><path d="M -5 0 L -15 -18 L 5 -18 L 10 0 Z" fill="url(#lg2)"/><path d="M -5 0 L -15 18 L 5 18 L 10 0 Z" fill="url(#lg2)"/><path d="M -25 0 L -32 -10 L -22 -10 L -20 0 Z" fill="url(#lg2)"/><circle cx="10" cy="0" r="2" fill="#1a365d"/><circle cx="3" cy="0" r="1.5" fill="#1a365d"/><circle cx="-3" cy="0" r="1.5" fill="#1a365d"/></g><ellipse cx="50" cy="50" rx="44" ry="15" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" transform="rotate(-20, 50, 50)"/><circle cx="25" cy="38" r="3" fill="#48bb78"/><circle cx="75" cy="62" r="3" fill="#ed8936"/></svg>'''
+    
+    logo_b64 = base64.b64encode(logo_svg.encode()).decode()
+    
+    st.markdown(f"""
     <div class="login-header">
-        <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#1a365d"/>
-              <stop offset="50%" style="stop-color:#2b6cb0"/>
-              <stop offset="100%" style="stop-color:#4299e1"/>
-            </linearGradient>
-            <linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:#ed8936"/>
-              <stop offset="100%" style="stop-color:#f6ad55"/>
-            </linearGradient>
-            <filter id="logoShadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1a365d" flood-opacity="0.3"/>
-            </filter>
-          </defs>
-          
-          <!-- Outer circle -->
-          <circle cx="50" cy="50" r="48" fill="url(#logoGrad1)" filter="url(#logoShadow)"/>
-          
-          <!-- Inner circle -->
-          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-          
-          <!-- Airplane -->
-          <g transform="translate(50, 50) rotate(-30)">
-            <!-- Fuselage -->
-            <ellipse cx="0" cy="0" rx="28" ry="6" fill="white"/>
-            <!-- Cockpit -->
-            <ellipse cx="22" cy="0" rx="8" ry="5" fill="rgba(255,255,255,0.9)"/>
-            <!-- Wings -->
-            <path d="M -5 0 L -15 -18 L 5 -18 L 10 0 Z" fill="url(#logoGrad2)"/>
-            <path d="M -5 0 L -15 18 L 5 18 L 10 0 Z" fill="url(#logoGrad2)"/>
-            <!-- Tail -->
-            <path d="M -25 0 L -32 -10 L -22 -10 L -20 0 Z" fill="url(#logoGrad2)"/>
-            <!-- Windows -->
-            <circle cx="10" cy="0" r="2" fill="#1a365d"/>
-            <circle cx="3" cy="0" r="1.5" fill="#1a365d"/>
-            <circle cx="-3" cy="0" r="1.5" fill="#1a365d"/>
-            <!-- Engine trails -->
-            <ellipse cx="-35" cy="-3" rx="5" ry="1.5" fill="rgba(255,255,255,0.4)"/>
-            <ellipse cx="-35" cy="3" rx="5" ry="1.5" fill="rgba(255,255,255,0.4)"/>
-          </g>
-          
-          <!-- Orbit ring -->
-          <ellipse cx="50" cy="50" rx="44" ry="15" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" transform="rotate(-20, 50, 50)"/>
-          
-          <!-- Data points -->
-          <circle cx="25" cy="38" r="3" fill="#48bb78"/>
-          <circle cx="75" cy="62" r="3" fill="#ed8936"/>
-          <circle cx="50" cy="85" r="2" fill="#4299e1"/>
-        </svg>
+        <img src="data:image/svg+xml;base64,{logo_b64}" width="80" height="80" alt="AeroTrack AI Logo">
         <h1 class="login-title">AeroTrack AI</h1>
         <p class="login-subtitle">Enterprise Transaction Tracker</p>
     </div>
