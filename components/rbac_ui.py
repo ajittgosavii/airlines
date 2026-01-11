@@ -33,182 +33,158 @@ def render_login_page() -> bool:
     if auth.is_authenticated():
         return True
     
-    # Custom CSS for login page - Compact and Professional
+    # Custom CSS for login page
     st.markdown("""
     <style>
-    /* Hide default Streamlit elements on login */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Constrain entire page width for login */
-    .main .block-container {
-        max-width: 500px !important;
-        padding: 2rem 1rem !important;
-        margin: 0 auto !important;
-    }
-    
-    /* Stacked layout override */
-    [data-testid="column"] {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        min-width: 100% !important;
-    }
-    
     .login-header {
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 10px;
         padding-top: 20px;
     }
     
     .login-title {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: 700;
         color: #1a365d;
-        margin: 20px 0 8px 0;
-        letter-spacing: -0.5px;
+        margin: 15px 0 5px 0;
     }
     
     .login-subtitle {
-        font-size: 15px;
+        font-size: 13px;
         color: #718096;
         margin: 0;
-        font-weight: 400;
     }
     
     .demo-box {
         background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
         border: 1px solid #9ae6b4;
-        border-radius: 12px;
-        padding: 18px 22px;
-        margin-top: 25px;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin-top: 15px;
     }
     
     .demo-box-title {
         color: #276749;
         font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 12px;
+        font-size: 12px;
+        margin-bottom: 8px;
     }
     
     .demo-table {
         width: 100%;
-        font-size: 13px;
+        font-size: 11px;
     }
     
     .demo-table td {
-        padding: 6px 0;
+        padding: 4px 0;
         color: #4a5568;
     }
     
     .demo-table td:first-child {
         font-weight: 600;
         color: #2d3748;
-        width: 90px;
+        width: 65px;
     }
     
-    /* Streamlit form styling */
+    /* Form styling */
     .stTextInput > div > div > input {
-        border-radius: 10px !important;
+        border-radius: 8px !important;
         border: 1.5px solid #e2e8f0 !important;
-        padding: 14px 16px !important;
-        font-size: 15px !important;
-        background: #fff !important;
+        padding: 10px 12px !important;
+        font-size: 14px !important;
     }
     
     .stTextInput > div > div > input:focus {
         border-color: #4299e1 !important;
-        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15) !important;
+        box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.15) !important;
     }
     
     .stTextInput > label {
-        font-size: 14px !important;
-        font-weight: 500 !important;
+        font-size: 13px !important;
         color: #4a5568 !important;
     }
     
     .stButton > button {
-        border-radius: 10px !important;
-        padding: 14px 24px !important;
+        border-radius: 8px !important;
+        padding: 10px 16px !important;
         font-weight: 600 !important;
-        font-size: 15px !important;
-        transition: all 0.2s ease !important;
+        font-size: 13px !important;
     }
     
     .stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%) !important;
         border: none !important;
-        color: white !important;
     }
     
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(66, 153, 225, 0.35) !important;
-    }
-    
-    /* Form container */
     [data-testid="stForm"] {
         background: white;
-        padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         border: 1px solid #e2e8f0;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Professional Corporate Logo - Using data URI for proper rendering
-    logo_svg = '''<svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a365d"/><stop offset="50%" style="stop-color:#2b6cb0"/><stop offset="100%" style="stop-color:#4299e1"/></linearGradient><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ed8936"/><stop offset="100%" style="stop-color:#f6ad55"/></linearGradient></defs><circle cx="50" cy="50" r="48" fill="url(#lg1)"/><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><g transform="translate(50, 50) rotate(-30)"><ellipse cx="0" cy="0" rx="28" ry="6" fill="white"/><ellipse cx="22" cy="0" rx="8" ry="5" fill="rgba(255,255,255,0.9)"/><path d="M -5 0 L -15 -18 L 5 -18 L 10 0 Z" fill="url(#lg2)"/><path d="M -5 0 L -15 18 L 5 18 L 10 0 Z" fill="url(#lg2)"/><path d="M -25 0 L -32 -10 L -22 -10 L -20 0 Z" fill="url(#lg2)"/><circle cx="10" cy="0" r="2" fill="#1a365d"/><circle cx="3" cy="0" r="1.5" fill="#1a365d"/><circle cx="-3" cy="0" r="1.5" fill="#1a365d"/></g><ellipse cx="50" cy="50" rx="44" ry="15" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" transform="rotate(-20, 50, 50)"/><circle cx="25" cy="38" r="3" fill="#48bb78"/><circle cx="75" cy="62" r="3" fill="#ed8936"/></svg>'''
-    
+    # Professional Corporate Logo
+    logo_svg = '''<svg width="65" height="65" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a365d"/><stop offset="50%" style="stop-color:#2b6cb0"/><stop offset="100%" style="stop-color:#4299e1"/></linearGradient><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ed8936"/><stop offset="100%" style="stop-color:#f6ad55"/></linearGradient></defs><circle cx="50" cy="50" r="48" fill="url(#lg1)"/><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><g transform="translate(50, 50) rotate(-30)"><ellipse cx="0" cy="0" rx="28" ry="6" fill="white"/><ellipse cx="22" cy="0" rx="8" ry="5" fill="rgba(255,255,255,0.9)"/><path d="M -5 0 L -15 -18 L 5 -18 L 10 0 Z" fill="url(#lg2)"/><path d="M -5 0 L -15 18 L 5 18 L 10 0 Z" fill="url(#lg2)"/><path d="M -25 0 L -32 -10 L -22 -10 L -20 0 Z" fill="url(#lg2)"/><circle cx="10" cy="0" r="2" fill="#1a365d"/><circle cx="3" cy="0" r="1.5" fill="#1a365d"/><circle cx="-3" cy="0" r="1.5" fill="#1a365d"/></g><ellipse cx="50" cy="50" rx="44" ry="15" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" transform="rotate(-20, 50, 50)"/><circle cx="25" cy="38" r="3" fill="#48bb78"/><circle cx="75" cy="62" r="3" fill="#ed8936"/></svg>'''
     logo_b64 = base64.b64encode(logo_svg.encode()).decode()
     
     st.markdown(f"""
     <div class="login-header">
-        <img src="data:image/svg+xml;base64,{logo_b64}" width="80" height="80" alt="AeroTrack AI Logo">
+        <img src="data:image/svg+xml;base64,{logo_b64}" width="65" height="65" alt="AeroTrack AI">
         <h1 class="login-title">AeroTrack AI</h1>
         <p class="login-subtitle">Enterprise Transaction Tracker</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Login form
-    with st.form("login_form"):
-        username = st.text_input("Username", placeholder="Enter your username")
-        password = st.text_input("Password", type="password", placeholder="Enter your password")
-        
-        col_btn1, col_btn2 = st.columns(2)
-        with col_btn1:
-            submit = st.form_submit_button("🔐 Sign In", use_container_width=True, type="primary")
-        with col_btn2:
-            st.form_submit_button("Forgot Password?", use_container_width=True)
+    # Center the form using columns
+    col1, col2, col3 = st.columns([1, 2, 1])
     
-    if submit:
-        if not username or not password:
-            st.error("Please enter both username and password")
-        else:
-            success, message = auth.login(username, password)
+    with col2:
+        # Login form
+        with st.form("login_form"):
+            username = st.text_input("Username", placeholder="Enter your username")
+            password = st.text_input("Password", type="password", placeholder="Enter your password")
             
-            if success:
-                if message == "LOGIN_SUCCESS_CHANGE_PASSWORD":
-                    st.warning("⚠️ You must change your password")
-                    st.session_state.show_password_change = True
-                else:
-                    st.success("✅ " + message)
-                st.rerun()
+            btn1, btn2 = st.columns(2)
+            with btn1:
+                submit = st.form_submit_button("🔐 Sign In", use_container_width=True, type="primary")
+            with btn2:
+                st.form_submit_button("Forgot?", use_container_width=True)
+        
+        if submit:
+            if not username or not password:
+                st.error("Please enter both username and password")
             else:
-                st.error("❌ " + message)
-    
-    # Demo credentials info - styled box
-    st.markdown("""
-    <div class="demo-box">
-        <div class="demo-box-title">🔑 Demo Credentials</div>
-        <table class="demo-table">
-            <tr><td>Admin:</td><td>admin / Admin@123</td></tr>
-            <tr><td>Manager:</td><td>manager / Manager@123</td></tr>
-            <tr><td>Agent:</td><td>agent / Agent@123</td></tr>
-            <tr><td>Viewer:</td><td>viewer / Viewer@123</td></tr>
-        </table>
-    </div>
-    """, unsafe_allow_html=True)
+                success, message = auth.login(username, password)
+                
+                if success:
+                    if message == "LOGIN_SUCCESS_CHANGE_PASSWORD":
+                        st.warning("⚠️ You must change your password")
+                        st.session_state.show_password_change = True
+                    else:
+                        st.success("✅ " + message)
+                    st.rerun()
+                else:
+                    st.error("❌ " + message)
+        
+        # Demo credentials
+        st.markdown("""
+        <div class="demo-box">
+            <div class="demo-box-title">🔑 Demo Credentials</div>
+            <table class="demo-table">
+                <tr><td>Admin:</td><td>admin / Admin@123</td></tr>
+                <tr><td>Manager:</td><td>manager / Manager@123</td></tr>
+                <tr><td>Agent:</td><td>agent / Agent@123</td></tr>
+                <tr><td>Viewer:</td><td>viewer / Viewer@123</td></tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
     
     return False
 
