@@ -58,6 +58,9 @@ from components.rbac_ui import (
     check_page_access
 )
 
+# Operations Dashboard (Flight Status, EU261, Fraud, Corporate)
+from components.operations_ui import render_operations_tab
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # PAGE CONFIGURATION
@@ -858,6 +861,14 @@ def render_chat_tab():
                         <li><strong>Pattern Analysis</strong> - Identify trends and systemic issues</li>
                         <li><strong>Priority Management</strong> - View critical cases and SLA breaches</li>
                     </ul>
+                    <p>💡 <strong>New!</strong> Check out the <strong>Operations</strong> tab for:</p>
+                    <ul>
+                        <li>🛫 <strong>Flight Status</strong> - Real-time flight tracking and disruption management</li>
+                        <li>🎫 <strong>PNR Lookup</strong> - Generate and view booking details with E-tickets</li>
+                        <li>💶 <strong>EU261 Calculator</strong> - Calculate passenger compensation eligibility</li>
+                        <li>🛡️ <strong>Fraud Detection</strong> - Risk assessment and fraud scoring</li>
+                        <li>🏢 <strong>Corporate Travel</strong> - Policy compliance and travel analytics</li>
+                    </ul>
                     <p>Try asking: <em>"Show all failed payment transactions from this week"</em></p>
                 </div>
             </div>
@@ -1625,6 +1636,11 @@ def main():
         tab_names.append("📈 Analytics")
         tab_permissions.append("analytics")
     
+    # Operations - requires VIEW_BASIC_ANALYTICS permission (same as analytics)
+    if auth.has_permission(Permission.VIEW_BASIC_ANALYTICS.value):
+        tab_names.append("✈️ Operations")
+        tab_permissions.append("operations")
+    
     # User Management - requires VIEW_USERS permission
     if auth.has_permission(Permission.VIEW_USERS.value):
         tab_names.append("👥 Users")
@@ -1646,6 +1662,8 @@ def main():
                     render_transactions_tab()
                 elif tab_type == "analytics":
                     render_analytics_tab()
+                elif tab_type == "operations":
+                    render_operations_tab()
                 elif tab_type == "users":
                     render_user_management()
                 elif tab_type == "help":
